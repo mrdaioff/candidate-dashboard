@@ -1,68 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Candidate Input Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Custom font for a clean, modern look */
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f3f4f6;
-        /* Light gray background */
-      }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
     </style>
-  </head>
-  <body class="flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
     <div class="bg-white p-6 sm:p-8 lg:p-10 rounded-xl shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-xl">
-      <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Candidate Data Input</h1>
-      <form class="space-y-6">
-        <div>
-          <label for="resume-upload" class="block text-sm sm:text-base font-medium text-gray-700 mb-2"> 1. Candidate Resume: </label>
-          <input type="file" id="resume-upload" name="resume-upload" accept=".pdf,.doc,.docx" class="block w-full text-sm text-gray-500
-                              file:mr-4 file:py-2 file:px-4
-                              file:rounded-full file:border-0
-                              file:text-sm file:font-semibold
-                              file:bg-blue-50 file:text-blue-700
-                              hover:file:bg-blue-100 cursor-pointer">
-          <p class="mt-1 text-xs text-gray-500">Upload PDF or DOCX files.</p>
-        </div>
-        <div>
-          <label for="linkedin-url" class="block text-sm sm:text-base font-medium text-gray-700 mb-2"> 2. LinkedIn Profile URL: </label>
-          <input type="url" id="linkedin-url" name="linkedin-url" placeholder="e.g., https://www.linkedin.com/in/johndoe" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
-                              focus:outline-none focus:ring-blue-500 focus:border-blue-500
-                              sm:text-sm placeholder-gray-400">
-        </div>
-        <div>
-          <label for="prescription-text" class="block text-sm sm:text-base font-medium text-gray-700 mb-2"> 3. Call Transcript (Prescription): </label>
-          <textarea id="prescription-text" name="prescription-text" rows="7" placeholder="Paste the full call transcript here for AI analysis..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Candidate Data Input</h1>
+
+        <form id="candidateForm" class="space-y-6">
+            <div>
+                <label for="resume-upload" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+                    1. Candidate Resume:
+                </label>
+                <input type="file" id="resume-upload" name="resume-upload" accept=".pdf,.doc,.docx"
+                       class="block w-full text-sm text-gray-500
+                             file:mr-4 file:py-2 file:px-4
+                             file:rounded-full file:border-0
+                             file:text-sm file:font-semibold
+                             file:bg-blue-50 file:text-blue-700
+                             hover:file:bg-blue-100 cursor-pointer">
+                <p class="mt-1 text-xs text-gray-500">Upload PDF or DOCX files.</p>
+            </div>
+
+            <div>
+                <label for="linkedin-url" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+                    2. LinkedIn Profile URL:
+                </label>
+                <input type="url" id="linkedin-url" name="linkedin-url" placeholder="e.g., https://www.linkedin.com/in/johndoe"
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+                             focus:outline-none focus:ring-blue-500 focus:border-blue-500
+                             sm:text-sm placeholder-gray-400">
+            </div>
+
+            <div>
+                <label for="call-transcript" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+                    3. Call Transcript (Prescription):
+                </label>
+                <textarea id="call-transcript" name="call-transcript" rows="7"
+                          placeholder="Paste the full call transcript here for AI analysis..."
+                          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
                                  focus:outline-none focus:ring-blue-500 focus:border-blue-500
                                  sm:text-sm resize-y"></textarea>
-        </div>
-        <div>
-          <label for="notes-insights" class="block text-sm sm:text-base font-medium text-gray-700 mb-2"> 4. Recruiter Notes/Insights: </label>
-          <textarea id="notes-insights" name="notes-insights" rows="5" placeholder="Add your observations, key takeaways, or specific notes here..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+            </div>
+
+            <div>
+                <label for="recruiter-notes" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+                    4. Recruiter Notes/Insights:
+                </label>
+                <textarea id="recruiter-notes" name="recruiter-notes" rows="5"
+                          placeholder="Add your observations, key takeaways, or specific notes here..."
+                          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
                                  focus:outline-none focus:ring-blue-500 focus:border-blue-500
                                  sm:text-sm resize-y"></textarea>
-        </div>
-        <div>
-          <label for="other-files-upload" class="block text-sm sm:text-base font-medium text-gray-700 mb-2"> 5. Other Relevant Files: </label>
-          <input type="file" id="other-files-upload" name="other-files-upload" multiple class="block w-full text-sm text-gray-500
-                              file:mr-4 file:py-2 file:px-4
-                              file:rounded-full file:border-0
-                              file:text-sm file:font-semibold
-                              file:bg-blue-50 file:text-blue-700
-                              hover:file:bg-blue-100 cursor-pointer">
-          <p class="mt-1 text-xs text-gray-500">Upload any other supporting documents (e.g., portfolio, assessment results).</p>
-        </div>
-        <div class="pt-4">
-          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md
+            </div>
+
+            <div>
+                <label for="qualification-docs-upload" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+                    5. Other Relevant Files:
+                </label>
+                <input type="file" id="qualification-docs-upload" name="qualification-docs-upload" multiple
+                       class="block w-full text-sm text-gray-500
+                             file:mr-4 file:py-2 file:px-4
+                             file:rounded-full file:border-0
+                             file:text-sm file:font-semibold
+                             file:bg-blue-50 file:text-blue-700
+                             hover:file:bg-blue-100 cursor-pointer">
+                <p class="mt-1 text-xs text-gray-500">Upload any other supporting documents (e.g., portfolio, assessment results).</p>
+            </div>
+
+            <div class="pt-4">
+                <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md
                                shadow-sm text-base font-medium text-white bg-blue-600
                                hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-                               focus:ring-blue-500 transition duration-150 ease-in-out"> Process Candidate </button>
-        </div>
-      </form>
+                               focus:ring-blue-500 transition duration-150 ease-in-out">
+                    Process Candidate
+                </button>
+            </div>
+        </form>
     </div>
-  </body>
+
+    <script>
+        document.getElementById('candidateForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const form = event.target;
+            const formData = new FormData();
+
+            // Append text inputs
+            formData.append('linkedin_url', form.elements['linkedin-url'].value);
+            formData.append('call_transcript', form.elements['call-transcript'].value);
+            formData.append('recruiter_notes', form.elements['recruiter-notes'].value);
+
+            // Append file inputs
+            const resumeFile = form.elements['resume-upload'].files[0];
+            if (resumeFile) {
+                formData.append('resume_file', resumeFile);
+            }
+
+            const qualificationDocs = form.elements['qualification-docs-upload'].files;
+            if (qualificationDocs && qualificationDocs.length > 0) {
+                for (let i = 0; i < qualificationDocs.length; i++) {
+                    formData.append('qualification_docs', qualificationDocs[i]);
+                }
+            }
+
+            // Generate a unique candidate ID for this submission (optional but good for tracking)
+            const candidateId = 'candidate_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+            formData.append('candidate_id', candidateId);
+
+            // IMPORTANT: Replace with your actual n8n Webhook URL
+            const n8nWebhookUrl = 'https://naa4fx5m.app.n8n.cloud/webhook-test/25f4ae68-92c5-43dc-b08f-f1f75f9afb55'; 
+
+            // Show a loading indicator
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.textContent = 'Processing... Please wait.';
+            submitButton.disabled = true;
+            submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+            try {
+                const response = await fetch(n8nWebhookUrl, {
+                    method: 'POST',
+                    body: formData // FormData automatically sets 'Content-Type: multipart/form-data'
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Successfully processed:', result);
+                    alert('Candidate data processed successfully! Check console for output. Candidate ID: ' + candidateId);
+                    // You can display the result to the user here or redirect them
+                } else {
+                    const errorText = await response.text();
+                    console.error('Processing failed:', response.status, errorText);
+                    alert('Error processing candidate data: ' + errorText);
+                }
+            } catch (error) {
+                console.error('Network or other error:', error);
+                alert('An unexpected error occurred. Please try again.');
+            } finally {
+                // Reset button state
+                submitButton.textContent = 'Process Candidate';
+                submitButton.disabled = false;
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        });
+    </script>
+</body>
 </html>
+
